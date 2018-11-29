@@ -47,6 +47,16 @@ spec:
         - name: condor-ce-{{ .Values.Instance }}-configuration
           mountPath: /tmp/access-key
           subPath: access-key
+        - name: nginx-{{ .Values.Instance }}-configuration
+          mountPath: /var/log/condor-ce/
+      - name: nginx-ce-logs
+        image: nginx:1.7.9
+        imagePullPolicy: IfNotPresent
+        ports:
+          containerPort: 80
+        volumeMounts:
+          - name: nginx-{{ .Values.Instance }}-configuration
+            mountPath: /usr/share/nginx/html
       volumes:
       - name: remote-host-key
         secret:
@@ -57,4 +67,6 @@ spec:
       - name: condor-ce-{{ .Values.Instance }}-configuration
         configMap: 
           name: condor-ce-{{ .Values.Instance }}-configuration
+      - name: condor-ce-{{ .Values.Instance }}-logs
+        emptyDir: {}
       restartPolicy: Always
