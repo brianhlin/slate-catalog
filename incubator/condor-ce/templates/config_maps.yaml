@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: condor-ce-{{ .Values.Instance }}-configuration
   labels:
-    app: nginx
+    app: condor-ce
     instance: {{ .Values.Instance }}
 data:
   ssh_known_hosts: {{ .Values.RemoteHost.HostName }} {{ .Values.RemoteHost.HostKey }}
