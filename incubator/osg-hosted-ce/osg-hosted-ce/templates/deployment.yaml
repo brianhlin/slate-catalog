@@ -30,6 +30,9 @@ spec:
       - name: osg-hosted-ce-{{ .Values.Instance }}-htcondor-ce-configuration
         configMap:
           name: osg-hosted-ce-{{ .Values.Instance }}-htcondor-ce-configuration
+      - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile-default
+        configMap:
+          name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile-default
       {{ if .Values.VomsmapOverride }}
       - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile
         configMap:
@@ -125,6 +128,9 @@ spec:
         - name: osg-hosted-ce-{{ .Values.Instance }}-htcondor-ce-configuration
           mountPath: /etc/condor-ce/config.d/99-instance.conf
           subPath: 99-instance.conf
+        - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile-default
+          mountPath: /usr/share/osg/voms-mapfile-default
+          subPath: voms-mapfile-default
         {{ if .Values.Certificate.Secret }}
         - name: osg-hosted-ce-hostcertkeypair-volume
           mountPath: /etc/grid-security/hostcert.pem
