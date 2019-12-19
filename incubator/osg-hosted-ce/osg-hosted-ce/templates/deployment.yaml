@@ -30,15 +30,10 @@ spec:
       - name: osg-hosted-ce-{{ .Values.Instance }}-htcondor-ce-configuration
         configMap:
           name: osg-hosted-ce-{{ .Values.Instance }}-htcondor-ce-configuration
-      - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile-default
-        configMap:
-          name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile-default
-      {{ if .Values.VomsmapOverride }}
       - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile
         configMap:
           name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile
-      {{ end }}
-      {{ if .Values.GridmapOverride }}
+      {{ if .Values.DnRemoteUserMapping }}
       - name: osg-hosted-ce-{{ .Values.Instance }}-grid-mapfile
         configMap:
           name: osg-hosted-ce-{{ .Values.Instance }}-grid-mapfile
@@ -128,9 +123,6 @@ spec:
         - name: osg-hosted-ce-{{ .Values.Instance }}-htcondor-ce-configuration
           mountPath: /etc/condor-ce/config.d/99-instance.conf
           subPath: 99-instance.conf
-        - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile-default
-          mountPath: /usr/share/osg/voms-mapfile-default
-          subPath: voms-mapfile-default
         {{ if .Values.Certificate.Secret }}
         - name: osg-hosted-ce-hostcertkeypair-volume
           mountPath: /etc/grid-security/hostcert.pem
@@ -148,12 +140,10 @@ spec:
           mountPath: /etc/osg/git.key
           subPath: git.key
         {{ end }}
-        {{ if .Values.VomsmapOverride }}
         - name: osg-hosted-ce-{{ .Values.Instance }}-voms-mapfile
           mountPath: /etc/grid-security/voms-mapfile
           subPath: voms-mapfile
-        {{ end }}
-        {{ if .Values.GridmapOverride }}
+        {{ if .Values.DnRemoteUserMapping }}
         - name: osg-hosted-ce-{{ .Values.Instance }}-grid-mapfile
           mountPath: /etc/grid-security/grid-mapfile
           subPath: grid-mapfile
