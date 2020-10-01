@@ -84,7 +84,7 @@ spec:
       {{ if .Values.HTTPLogger.Enabled }}
       initContainers:
       - name: logging-sidecar-init
-        image: brianhlin/hosted-ce:gittrac7788
+        image: brianhlin/hosted-ce:bosco-1.3.4
         imagePullPolicy: Always
         command: ['/bin/chown','condor:condor','/var/log/condor-ce']
         volumeMounts:
